@@ -69,5 +69,3 @@ Learn the fundamentals of HTTP servers by developing a simple web server in Java
 ## Preparation for Next Session:
 Briefly introduce the next session's focus, potentially moving towards developing a full-fledged web application using Java and a popular framework to apply the principles learned about HTTP servers in a more complex project.
 ```
-
-This session plan provides a comprehensive introduction to HTTP servers using Java, designed to be practical and engaging for participants with some programming background.
