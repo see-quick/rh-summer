@@ -1,6 +1,3 @@
-Certainly, focusing on Java for creating a simple HTTP server provides an excellent opportunity to understand the basics of web communication and server-side programming. Here's a structured session plan in Markdown format designed for teaching the fundamentals of HTTP servers using Java.
-
-```markdown
 # Session: Building a Simple HTTP Server in Java
 
 ## Objective:
