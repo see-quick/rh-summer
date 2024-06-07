@@ -2,6 +2,7 @@ package org.example.solutions;
 
 import static org.mockito.Mockito.*;
 
+import org.example.end.SimpleHttpServerWithGetMethods;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 import org.mockito.Mock;

@@ -1,5 +1,6 @@
 package org.example.solutions;
 
+import org.example.end.SimpleHttpServerWithGetMethods;
 import org.junit.jupiter.api.Assertions;
 import org.junit.jupiter.api.Test;
 

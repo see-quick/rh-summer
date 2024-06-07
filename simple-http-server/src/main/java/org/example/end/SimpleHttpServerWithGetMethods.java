@@ -1,12 +1,22 @@
-package org.example.solutions;
+package org.example.end;
 
 import java.io.*;
 import java.net.ServerSocket;
 import java.net.Socket;
 import java.nio.charset.StandardCharsets;
 
+/**
+ * A simple HTTP server that handles GET requests for predefined paths.
+ */
 public class SimpleHttpServerWithGetMethods {
 
+    /**
+     * Main method to start the HTTP server.
+     * Listens on port 8080 and handles incoming client connections.
+     *
+     * @param args              Command line arguments (not used).
+     * @throws IOException      If an I/O error occurs when opening the server socket.
+     */
     public static void main(String[] args) throws IOException {
         try(ServerSocket serverSocket = new ServerSocket(8080)) {
             System.out.println("Listening for connection on port 8080 ....");
@@ -18,6 +28,11 @@ public class SimpleHttpServerWithGetMethods {
         }
     }
 
+    /**
+     * Handles client requests by reading the HTTP request line and generating an appropriate response.
+     *
+     * @param clientSocket      The client socket connected to the server.
+     */
     protected static void handleClientRequest(Socket clientSocket) {
         try (BufferedReader reader = new BufferedReader(new InputStreamReader(clientSocket.getInputStream()));
             OutputStream os = clientSocket.getOutputStream()) {
@@ -33,6 +48,11 @@ public class SimpleHttpServerWithGetMethods {
         }
     }
 
+    /**
+     * Extracts the request path from the HTTP request line.
+     * @param requestLine   The HTTP request line (e.g., "GET /path HTTP/1.1").
+     * @return              The path part of the request line.
+     */
     protected static String getRequestPath(String requestLine) {
         if (requestLine != null && requestLine.length() > 0) {
             // Typical Request Line format: "GET /path HTTP/1.1"
@@ -44,6 +64,11 @@ public class SimpleHttpServerWithGetMethods {
         return ""; // Return empty string if no path is found
     }
 
+    /**
+     * Builds an HTTP response based on the given request path.
+     * @param path      The request path.
+     * @return          A string representing the full HTTP response including the status line, headers, and body.
+     */
     protected static String buildResponseForPath(String path) {
         switch (path) {
             case "/":
