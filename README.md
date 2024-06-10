@@ -57,4 +57,4 @@ If you have any suggestions or improvements, feel free to open an issue or submi
 
 ## License
 
-This repository is licensed under the MIT License. See the [LICENSE](LICENSE) file for more details.
+This project is licensed under the Apache 2.0 License. See the [LICENSE](LICENSE) file for more details.
