@@ -30,3 +30,27 @@ The Java program 'SimpleHttpServer.java' creates a basic HTTP server that can ha
    ```bash
    git clone https://github.com/see-quick/rh-summer.git
    cd rh-summer/_04-bug-hunting
+2. Start the server (either in IDE or terminal)
+
+## Useful things
+
+- New line in HTTP headers. (`\r\n`)
+- End of HTTP headers and start of the body. (``\r\n\r\n``)
+
+## Auxiliary commands
+
+```bash
+curl localhost:8000/prod
+ucts
+[]
+```
+
+```bash
+curl -X POST localhost:8
+000/products\&name=ball\&price=10
+Product added
+```
+
+```bash
+curl -X PUT -H "Content-Length: 18" -d "name=ball&price=24" http://localhost:8000/products/1
+```
