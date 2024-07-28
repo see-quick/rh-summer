@@ -3,10 +3,27 @@
 ## Description
 This project focuses on identifying and fixing bugs in a given HTTP server implementation. It aims to improve debugging and problem-solving skills.
 
-## Features
-- Buggy HTTP server code
-- Common issues and their fixes
-- Debugging tips and techniques
+The Java program 'SimpleHttpServer.java' creates a basic HTTP server that can handle GET, POST, PUT, and DELETE requests for managing products. However, the program has several issues, including incorrect server port initialization, a typo in the HTTP method handling, improper ID incrementation, and mishandling of character encoding and HTTP status codes.
+
+### == Steps to Reproduce ==
+
+ 1. Start the server.
+ 2. Make a POST request to add a new product with name and price.
+ 3. Make a PUT request to update the product's name and price.
+
+### == Actual results ==
+
+ - The server is incorrectly initialized with a string instead of a port number, causing a failure to start.
+ - Incorrect handling of the 'POST' method as 'POOST', causing method not allowed errors.
+ - The ID increments incorrectly after adding a product, potentially leading to skipped IDs.
+ - Incorrect HTTP status codes are returned for successful deletions.
+
+### == Expected results ==
+
+ - Correct initialization of the server on a valid port.
+ - Proper handling of the POST method.
+ - Product IDs should increment correctly without skipping.
+    - Appropriate HTTP status codes returned for CRUD operations.
 
 ## Getting Started
 1. Clone the repository:
