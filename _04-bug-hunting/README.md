@@ -40,15 +40,18 @@ The Java program 'SimpleHttpServer.java' creates a basic HTTP server that can ha
 ## Auxiliary commands
 
 ```bash
-curl localhost:8000/prod
-ucts
+curl localhost:8000/products
 []
 ```
 
 ```bash
-curl -X POST localhost:8
-000/products\&name=ball\&price=10
+curl -X POST localhost:8000/products\&name=ball\&price=10
 Product added
+```
+
+```bash
+curl localhost:8000/products
+[Product 2: ball, Price: 10]
 ```
 
 ```bash
