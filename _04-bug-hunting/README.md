@@ -23,7 +23,7 @@ The Java program 'SimpleHttpServer.java' creates a basic HTTP server that can ha
  - Correct initialization of the server on a valid port.
  - Proper handling of the POST method.
  - Product IDs should increment correctly without skipping.
-    - Appropriate HTTP status codes returned for CRUD operations.
+ - Appropriate HTTP status codes returned for CRUD operations.
 
 ## Getting Started
 1. Clone the repository:
