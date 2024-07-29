@@ -1,59 +1,128 @@
-# Bug Hunting
+# Bug Hunting Exercise
 
 ## Description
-This project focuses on identifying and fixing bugs in a given HTTP server implementation. It aims to improve debugging and problem-solving skills.
+This project involves debugging Java-based HTTP servers with varying levels of difficulty, each designed with intentional errors to challenge your debugging skills. The servers support basic HTTP functionality and are meant to help you practice identifying and fixing bugs in real-world scenarios.
 
-The Java program 'SimpleHttpServer.java' creates a basic HTTP server that can handle GET, POST, PUT, and DELETE requests for managing products. However, the program has several issues, including incorrect server port initialization, a typo in the HTTP method handling, improper ID incrementation, and mishandling of character encoding and HTTP status codes.
-
-### == Steps to Reproduce ==
-
- 1. Start the server.
- 2. Make a POST request to add a new product with name and price.
- 3. Make a PUT request to update the product's name and price.
-
-### == Actual results ==
-
- - The server is incorrectly initialized with a string instead of a port number, causing a failure to start.
- - Incorrect handling of the 'POST' method as 'POOST', causing method not allowed errors.
- - The ID increments incorrectly after adding a product, potentially leading to skipped IDs.
- - Incorrect HTTP status codes are returned for successful deletions.
-
-### == Expected results ==
-
- - Correct initialization of the server on a valid port.
- - Proper handling of the POST method.
- - Product IDs should increment correctly without skipping.
- - Appropriate HTTP status codes returned for CRUD operations.
+### Applications
+1. `SimpleHttpServer` (Level 1): Basic server with very simple bugs.
+2. `MediumHttpServer` (Level 2): Intermediate server with medium difficulty bugs.
+3. `SpringBootHttpServer` (Level 3): Spring Boot application with hard-to-find bugs.
 
 ## Getting Started
 1. Clone the repository:
    ```bash
-   git clone https://github.com/see-quick/rh-summer.git
-   cd rh-summer/_04-bug-hunting
-2. Start the server (either in IDE or terminal)
+   git clone https://example.com/java-http-servers.git
+   cd java-http-servers
+   ```
+2. Start the server using your IDE or from the terminal.
 
-## Useful things
+## Applications and Bugs
 
-- New line in HTTP headers. (`\r\n`)
-- End of HTTP headers and start of the body. (``\r\n\r\n``)
+### Level 1: SimpleHttpServer
+**File:** `src/main/java/org/example/level1/SimpleHttpServer.java`
 
-## Auxiliary commands
+#### Steps to Reproduce:
+1. Start the server:
+   ```bash
+   javac SimpleHttpServer.java
+   java SimpleHttpServer
+   ```
+2. Send a GET request to the server:
+   ```bash
+   curl http://localhost:8000
+   ```
 
+#### Actual Results:
+- Server may run into an infinite loop if the client doesn't send a blank line.
+- Output stream is not closed, causing resource leaks.
+- Client socket is not closed, causing resource leaks.
+
+#### Expected Results:
+- Server should handle requests without running into infinite loops.
+- Output stream should be properly closed.
+- Client socket should be properly closed after handling requests.
+
+### Level 2: MediumHttpServer
+**File:** `src/main/java/org/example/level2/MediumHttpServer.java`
+
+#### Steps to Reproduce:
+1. Start the server:
+   ```bash
+   javac MediumHttpServer.java
+   java MediumHttpServer
+   ```
+2. Send a GET request to the server:
+   ```bash
+   curl http://localhost:8001
+   ```
+
+#### Actual Results:
+- Improper exception handling leading to insufficient error logging.
+- Closing socket without closing streams, leading to potential resource leaks.
+
+#### Expected Results:
+- Proper exception handling with detailed error logging.
+- Proper closing of streams before closing the socket.
+
+### Level 3: SpringBootHttpServer
+**File:** `src/main/java/org/example/level3/DemoApplication.java`
+
+#### Steps to Reproduce:
+1. Start the Spring Boot application:
+   ```bash
+   mvn spring-boot:run
+   ```
+2. Send requests to the server:
+   - Add a product:
+     ```bash
+     curl -X POST http://localhost:8080/products -d "name=Widget&price=25"
+     ```
+   - List products:
+     ```bash
+     curl http://localhost:8080/products
+     ```
+   - Delete a product:
+     ```bash
+     curl -X DELETE http://localhost:8080/products/1
+     ```
+
+#### Actual Results:
+- XSS (i.e., Cross-site scripting) vulnerability due to improper handling of user input.
+- Performance issue due to deliberate delay.
+- Lack of input validation, leading to potential `NumberFormatException`.
+
+#### Expected Results:
+- Proper handling of user input to prevent XSS.
+- Efficient request handling without unnecessary delays.
+- Proper input validation to handle invalid inputs gracefully.
+
+## Useful Information
+
+- New line in HTTP headers: `\r\n`
+- End of HTTP headers and start of the body: `\r\n\r\n`
+
+## Auxiliary Commands
+
+### SimpleHttpServer
 ```bash
-curl localhost:8000/products
-[]
+curl http://localhost:8000
 ```
 
+### MediumHttpServer
 ```bash
-curl -X POST localhost:8000/products\&name=ball\&price=10
-Product added
+curl http://localhost:8001
 ```
 
-```bash
-curl localhost:8000/products
-[Product 2: ball, Price: 10]
-```
-
-```bash
-curl -X PUT -H "Content-Length: 18" -d "name=ball&price=24" http://localhost:8000/products/1
-```
+### SpringBootHttpServer
+- Add a product:
+  ```bash
+  curl -X POST http://localhost:8080/products -d "name=Widget&price=25"
+  ```
+- List products:
+  ```bash
+  curl http://localhost:8080/products
+  ```
+- Delete a product:
+  ```bash
+  curl -X DELETE http://localhost:8080/products/1
+  ```
