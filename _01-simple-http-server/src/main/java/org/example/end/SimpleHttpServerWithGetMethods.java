@@ -54,7 +54,7 @@ public class SimpleHttpServerWithGetMethods {
      * @return              The path part of the request line.
      */
     protected static String getRequestPath(String requestLine) {
-        if (requestLine != null && requestLine.length() > 0) {
+        if (requestLine != null && !requestLine.isEmpty()) {
             // Typical Request Line format: "GET /path HTTP/1.1"
             String[] parts = requestLine.split(" ");
             if (parts.length > 1) {
