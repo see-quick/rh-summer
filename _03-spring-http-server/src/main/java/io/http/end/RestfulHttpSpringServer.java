@@ -51,7 +51,7 @@ public class RestfulHttpSpringServer {
      * @return      The item if found, or a "Item not found" message.
      */
     @GetMapping("/{id}")
-    public String getItem(@PathVariable int id) {
+    public String getItem(@PathVariable("id") int id) {
         return items.getOrDefault(id, "Item not found");
     }
 
