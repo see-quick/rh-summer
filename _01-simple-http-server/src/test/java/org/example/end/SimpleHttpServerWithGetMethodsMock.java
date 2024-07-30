@@ -13,6 +13,7 @@ import java.net.Socket;
 public class SimpleHttpServerWithGetMethodsMock {
 
     @Mock
+    // the tests can focus on the server's handling logic without requiring a real network connection
     private Socket socketMock;
 
     private ByteArrayOutputStream outputStream;
@@ -24,6 +25,7 @@ public class SimpleHttpServerWithGetMethodsMock {
         outputStream = new ByteArrayOutputStream();
 
         // Initialize mock behavior for socket I/O streams
+        //
         when(socketMock.getOutputStream()).thenReturn(outputStream);
     }
 
