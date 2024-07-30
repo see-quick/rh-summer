@@ -33,12 +33,10 @@ This project involves debugging Java-based HTTP servers with varying levels of d
    ```
 
 #### Actual Results:
-- Server may run into an infinite loop if the client doesn't send a blank line.
 - Output stream is not closed, causing resource leaks.
 - Client socket is not closed, causing resource leaks.
 
 #### Expected Results:
-- Server should handle requests without running into infinite loops.
 - Output stream should be properly closed.
 - Client socket should be properly closed after handling requests.
 
@@ -57,12 +55,17 @@ This project involves debugging Java-based HTTP servers with varying levels of d
    ```
 
 #### Actual Results:
+- Possible NPE during client request handling  
 - Improper exception handling leading to insufficient error logging.
 - Closing socket without closing streams, leading to potential resource leaks.
 
 #### Expected Results:
+- No NPE is thrown during client request
 - Proper exception handling with detailed error logging.
 - Proper closing of streams before closing the socket.
+
+### Reproducers 
+1-2. Look what happen if you do `curl -v telnet://localhost:8001`
 
 ### Level 3: SpringBootHttpServer
 **File:** `src/main/java/org/example/level3/DemoApplication.java`
@@ -95,6 +98,18 @@ This project involves debugging Java-based HTTP servers with varying levels of d
 - Proper handling of user input to prevent XSS.
 - Efficient request handling without unnecessary delays.
 - Proper input validation to handle invalid inputs gracefully.
+
+### Reproducer
+
+1. Visit web-browser on `"http://localhost:8080/hello?name=<script>alert('XSS')</script>"`
+2.
+```
+curl localhost:8080/slow
+```
+3.
+```
+curl -X GET localhost:8080/data\?id=dsad
+```
 
 ## Useful Information
 

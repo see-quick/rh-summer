@@ -19,16 +19,15 @@ public class SimpleHttpServer {
         BufferedReader in = new BufferedReader(new InputStreamReader(clientSocket.getInputStream()));
         OutputStream out = clientSocket.getOutputStream();
 
-        String line = in.readLine();
-        while (!line.isEmpty()) {  // Bug: This may result in an infinite loop if the client doesn't send a blank line.
+        String line;
+        StringBuilder request = new StringBuilder();
+        while ((line = in.readLine()) != null && !line.isEmpty()) {
+            request.append(line).append("\n");
             System.out.println(line);
-            line = in.readLine();
         }
 
         String httpResponse = "HTTP/1.1 200 OK\r\n\r\n" +
                               "<html><body><h1>Hello, World!</h1></body></html>";
-        out.write(httpResponse.getBytes("UTF-8"));  // Bug: Doesn't close the output stream.
-
-        // Bug: Doesn't close the client socket.
+        out.write(httpResponse.getBytes("UTF-8"));
     }
 }

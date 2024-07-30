@@ -30,7 +30,7 @@ public class MediumHttpServer {
             out = clientSocket.getOutputStream();
 
             String line = in.readLine();
-            while (!line.isEmpty()) {
+            while (line != null && !line.isEmpty()) {
                 System.out.println(line);
                 line = in.readLine();
             }

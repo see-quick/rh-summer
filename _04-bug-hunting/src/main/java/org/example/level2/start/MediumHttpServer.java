@@ -15,7 +15,7 @@ public class MediumHttpServer {
                 try {
                     handleRequest(clientSocket);
                 } catch (Exception e) {
-                    e.printStackTrace();  // Bug: Improper exception handling.
+                    e.printStackTrace();
                 }
             }).start();
         }
@@ -36,6 +36,6 @@ public class MediumHttpServer {
         out.write(httpResponse.getBytes("UTF-8"));
         out.flush();
 
-        clientSocket.close();  // Bug: Closing socket without closing streams.
+        clientSocket.close();
     }
 }
