@@ -23,7 +23,7 @@ public class SimpleHttpServer {
             out = clientSocket.getOutputStream();
 
             String line = in.readLine();
-            while (line != null && !line.isEmpty()) {  // Fix: Ensure line is not null to prevent infinite loop.
+            while (line != null && !line.isEmpty()) {  // Fix: Ensure line is not null to prevent NPE.
                 System.out.println(line);
                 line = in.readLine();
             }
@@ -33,6 +33,7 @@ public class SimpleHttpServer {
             out.write(httpResponse.getBytes("UTF-8"));
             out.flush();
         } finally {
+            // Fix: In, Out and closing Socket
             if (in != null) {
                 in.close();
             }
