@@ -29,7 +29,7 @@ public class HttpSpring {
     }
 
     // TODO: 3. very similar annotation with slight modification
-    public String getItem(@PathVariable int id) {
+    public String getItem(@PathVariable("id") int id) {
         return items.getOrDefault(id, "Item not found");
     }
 
