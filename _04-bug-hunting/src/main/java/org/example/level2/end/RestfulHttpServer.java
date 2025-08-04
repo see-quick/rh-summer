@@ -17,7 +17,7 @@ import java.util.regex.Pattern;
  */
 public class RestfulHttpServer {
 
-    private static final int PORT = 8080;
+    private static final int PORT = 8081;
     private final Map<String, Map<Pattern, BiConsumer<HttpRequest, BufferedWriter>>> routes = new HashMap<>();
 
     private Map<Integer, String> items = new ConcurrentHashMap<>();
@@ -70,6 +70,13 @@ public class RestfulHttpServer {
             boolean matched = false;
             Map<Pattern, BiConsumer<HttpRequest, BufferedWriter>> methodRoutes = routes.get(request.getMethod());
 
+            // Fix: If the method is invalid or not supported, handle as not found!
+            if (methodRoutes == null) {
+                notFoundHandler(writer);
+                writer.flush();
+                return;
+            }
+
             for (Map.Entry<Pattern, BiConsumer<HttpRequest, BufferedWriter>> entry : methodRoutes.entrySet()) {
                 Matcher matcher = entry.getKey().matcher(request.getPath());
                 if (matcher.matches()) {
@@ -98,9 +105,28 @@ public class RestfulHttpServer {
             System.err.println("An error occurred:" + e.getMessage());
             throw new RuntimeException(e);
         }
+
+        // BUG 5: TLDR; No null or empty line check, will throw if line is null!
+        //  If a client connects and sends an empty line or just hits Enter (as with telnet), line will be null or empty.
+        //	line.split(" ") on null will throw a NullPointerException.
+        //	Or, if line is not null but just "hi", then requestLine[1] will throw ArrayIndexOutOfBoundsException.
+        //	The server will print an exception stack trace and close the connection, possibly without a proper HTTP response.
+        // Validation step!
+        if (line == null || line.trim().isEmpty()) {
+            // Handle empty request: can return a special HttpRequest or throw
+            System.err.println("Received empty or null request line");
+            return new HttpRequest("INVALID", "");
+        }
+
         String[] requestLine = line.split(" ");
+        if (requestLine.length < 2) {
+            System.err.println("Malformed request line: " + line);
+            return new HttpRequest("INVALID", "");
+        }
+
         String method = requestLine[0];
         String path = requestLine[1];
+        // --------------------
 
         // BUG 2: Method is always set to "GET" regardless of the request
         // return new HttpRequest("GET", path); // BAD: always GET

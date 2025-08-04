@@ -1,6 +1,9 @@
 package org.example.level1;
 
-import java.io.*;
+import java.io.OutputStream;
+import java.io.IOException;
+import java.io.BufferedReader;
+import java.io.InputStreamReader;
 import java.net.ServerSocket;
 import java.net.Socket;
 import java.nio.charset.StandardCharsets;

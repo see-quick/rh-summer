@@ -1,11 +1,12 @@
 # Bug Hunting Exercise
 
 ## Description
-This project involves debugging Java-based HTTP servers with varying levels of difficulty, each designed with intentional errors to challenge your debugging skills. The servers support basic HTTP functionality and are meant to help you practice identifying and fixing bugs in real-world scenarios.
+This project involves debugging Java-based HTTP servers with varying levels of difficulty, each designed with intentional errors to challenge your debugging skills. 
+The servers support basic HTTP functionality and are meant to help you practice identifying and fixing bugs in real-world scenarios.
 
 ### Applications
-1. `SimpleHttpServer` (Level 1): Basic server with very simple bugs.
-2. `MediumHttpServer` (Level 2): Intermediate server with medium difficulty bugs.
+1. `SimpleHttpServer` (Level 1): A basic HTTP server with straightforward, beginner-level bugs.
+2. `RestfulHttpServer` (Level 2): A small REST server with more realistic and tricky issues.
 3. `SpringBootHttpServer` (Level 3): Spring Boot application with hard-to-find bugs.
 
 ## Getting Started
@@ -32,13 +33,16 @@ This project involves debugging Java-based HTTP servers with varying levels of d
    curl http://localhost:8000
    ```
 
-#### Actual Results:
-- Output stream is not closed, causing resource leaks.
-- Client socket is not closed, causing resource leaks.
+#### Actual Results (Intentional Bugs):
+- ?
+- ?
+- ?
 
 #### Expected Results:
-- Output stream should be properly closed.
-- Client socket should be properly closed after handling requests.
+- Full HTTP response should be sent to the client.
+- Requested paths are correctly extracted, and the right page is shown.
+- /about should show the About page, not 404.
+
 
 ### Level 2: MediumHttpServer
 **File:** `src/main/java/org/example/level2/MediumHttpServer.java`
@@ -47,22 +51,26 @@ This project involves debugging Java-based HTTP servers with varying levels of d
 1. Start the server:
    ```bash
    javac RestfulHttpServer.java
-   java MediumHttpServer
+   java RestfulHttpServer
    ```
-2. Send a GET request to the server:
-   ```bash
-   curl http://localhost:8001
-   ```
-
+2. Try requests:
+    ```bash
+    curl -X POST http://localhost:8080/items
+    curl http://localhost:8080/items
+    curl http://localhost:8080/items/1
+    curl -X DELETE http://localhost:8080/items/1
+    ```
+     
 #### Actual Results:
-- Possible NPE during client request handling  
-- Improper exception handling leading to insufficient error logging.
-- Closing socket without closing streams, leading to potential resource leaks.
+- ?
+- ?
+- ?
 
 #### Expected Results:
-- No NPE is thrown during client request
-- Proper exception handling with detailed error logging.
-- Proper closing of streams before closing the socket.
+- Each HTTP method and path should trigger the correct handler.
+- Items should be created, listed, and deleted with consistent IDs.
+- 404 Not Found status should be sent when an item or route does not exist.
+- JSON should be valid and parseable
 
 ### Reproducers 
 1-2. Look what happen if you do `curl -v telnet://localhost:8001`
