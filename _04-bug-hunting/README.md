@@ -46,7 +46,7 @@ This project involves debugging Java-based HTTP servers with varying levels of d
 #### Steps to Reproduce:
 1. Start the server:
    ```bash
-   javac MediumHttpServer.java
+   javac RestfulHttpServer.java
    java MediumHttpServer
    ```
 2. Send a GET request to the server:
