@@ -183,6 +183,7 @@ public class RestfulHttpServer {
                 // ------------------------------------------------------
                 // TODO: 2.
                 //      add the correct `json` item body
+                //          -> you can use https://jsonlint.com/ for verification of your JSON
                 //      add content-type
                 //      add status code
                 String body = "";
