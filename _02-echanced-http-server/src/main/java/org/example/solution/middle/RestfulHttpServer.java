@@ -136,7 +136,7 @@ public class RestfulHttpServer {
         // ------------------------------------------------------
         String method = "";
         String path = "";
-        // TODO 1. parting part of request line is needed
+        // TODO 1. parsing part of request line is needed
         // ------------------------------------------------------
 
         // Skipping headers and other parts for simplicity
