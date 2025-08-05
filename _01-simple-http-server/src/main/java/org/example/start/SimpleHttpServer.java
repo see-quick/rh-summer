@@ -36,6 +36,7 @@ public class SimpleHttpServer {
 
             String line = reader.readLine(); // Read the request line
 
+            // [DEBUG PURPOSE] 0. remove this while if you start after using testing curl :)
             while (!line.isEmpty()) {
                 System.out.println(line);
                 line = reader.readLine();
@@ -55,8 +56,6 @@ public class SimpleHttpServer {
             //
             //          Method Not Allowed
             // Send HTTP response
-            String httpResponse = "HTTP/1.1 200 OK\r\n\r\n" + "<html><body>Hello World!</body></html>\n";
-            os.write(httpResponse.getBytes(StandardCharsets.UTF_8));
         } catch (IOException e) {
             e.printStackTrace();
         }
